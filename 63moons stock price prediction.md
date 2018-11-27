@@ -14,7 +14,6 @@ sns.set_style('whitegrid')
 %matplotlib inline
 ```
 
-
 ```python
 from datetime import datetime
 ```
@@ -147,6 +146,7 @@ log_returns_FINTECH.plot(legend=True,figsize=(12,5),linestyle='--',marker='o')
 ![png](output_9_1.png)
 
 Below script will do the calculation for the **monte carlo simulation** with the iteration of 1000 times and for 30 days.
+
 ```python
 from scipy.stats import norm
 days = 30
@@ -186,7 +186,6 @@ plt.title( u"Monte Carlo Simulation Analysis of FINTECH for %s days" % days, wei
 
 ![png](output_10_1.png)
 
-From the above 
 
 
 The intital price of FINTECH
@@ -195,7 +194,7 @@ The intital price of FINTECH
 S0_FINTECH
     105.6500015258789
 ```
-
+The simulation has been run for 10000 times.
 
 ```python
 from sklearn.preprocessing import OneHotEncoder
@@ -206,6 +205,7 @@ for run in xrange(runs):
     simulations_FINTECH = monte_carlo_FINTECH(days,iterations,drift,stdev)[days -1]
 ```
 
+Below is the price of the FINTECH technologies which will be after 30 days
 
 ```python
 q = np.percentile(simulations_FINTECH,1)
@@ -220,7 +220,5 @@ plt.figtext(0.6,0.65,"q(0.99): Rs %.2f" %q)
 plt.axvline(x=q, linewidth=4, color='red')
 plt.title(u"Final price distribution for 63moons Share after %s days" % days, weight='bold');
 ```
-
-
 ![png](output_13_0.png)
 
