@@ -1,4 +1,6 @@
 
+In order to predict the share price of 63moons we have taken the help of python libraries.
+Below are the python libraries which have been imported.
 
 ```python
 import numpy as np
@@ -25,51 +27,29 @@ end = datetime.now()
 start = datetime(end.year-12,end.month,end.day)
 ```
 
+"Adj Close" price has been extraced from yahoo finance using datareader.
 
 ```python
 for x in bank_list:
     globals()[x] = wb.DataReader(x,'yahoo',start,end)
 ```
-
+And we have given the name of the dataframe as FINTECH
 
 ```python
 FINTECH = globals()[x]
 ```
 
-
 ```python
 FINTECH.shape
-```
-
-
-
 
     (2548, 6)
+```
 
-
-
+Below is the head of the dataframe.
 
 ```python
 FINTECH.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -142,57 +122,31 @@ FINTECH.head()
 </div>
 
 
-
-
 ```python
 FINTECH['Adj Close'].plot(legend=True,figsize=(15,7))
 plt.xlabel('Date')
 plt.ylabel('Price in Rupees')
 plt.title( 'Price of FINTECH')
 ```
-
-
-
-
-    Text(0.5,1,'Price of FINTECH')
-
-
-
-
 ![png](output_7_1.png)
 
-
+Below is the begining price for the share FINTECH
 
 ```python
 S0_FINTECH = FINTECH['Adj Close'].iloc[-1]
 S0_FINTECH # Start Price
-```
-
-
-
 
     105.6500015258789
-
-
-
+```
+Below is the logarithmic return for the dataframe FINTECH
 
 ```python
 log_returns_FINTECH = np.log( 1 + FINTECH['Adj Close'].pct_change()) 
 log_returns_FINTECH.plot(legend=True,figsize=(12,5),linestyle='--',marker='o')
 ```
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x929350>
-
-
-
-
 ![png](output_9_1.png)
 
-
-
+Below script will do the calculation for the **monte carlo simulation** with the iteration of 1000 times and for 30 days.
 ```python
 from scipy.stats import norm
 days = 30
@@ -228,29 +182,19 @@ plt.figtext(0.3,0.8, s="Number of Iterations :%.0f" %iterations)
 plt.figtext(0.3,0.75, s="Number of Days :%.0f" %days)
 plt.title( u"Monte Carlo Simulation Analysis of FINTECH for %s days" % days, weight='bold')
 ```
-
-
-
-
     Text(0.5,1,'Monte Carlo Simulation Analysis of FINTECH for 30 days')
-
-
-
 
 ![png](output_10_1.png)
 
+From the above 
 
+
+The intital price of FINTECH
 
 ```python
 S0_FINTECH
-```
-
-
-
-
     105.6500015258789
-
-
+```
 
 
 ```python
